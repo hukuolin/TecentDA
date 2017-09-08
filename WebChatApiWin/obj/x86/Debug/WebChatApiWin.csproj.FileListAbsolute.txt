@@ -1,0 +1,11 @@
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\bin\x86\Debug\WebChatFriend.xml
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\bin\x86\Debug\WebChatApiWin.exe.config
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\bin\x86\Debug\WebChatApiWin.exe
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\bin\x86\Debug\WebChatApiWin.pdb
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\bin\x86\Debug\FluorineFx.dll
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\bin\x86\Debug\Window.DataHelper.dll
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\x86\Debug\WebChatApiWin.MainForm.resources
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\x86\Debug\WebChatApiWin.Properties.Resources.resources
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\x86\Debug\WebChatApiWin.csproj.GenerateResource.Cache
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\x86\Debug\WebChatApiWin.exe
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\x86\Debug\WebChatApiWin.pdb

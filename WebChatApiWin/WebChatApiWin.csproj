@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F5ACDA36-2AE6-4586-9322-4C37FDE15ACA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebChatApiWin</RootNamespace>
+    <AssemblyName>WebChatApiWin</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Data">
+      <HintPath>..\bin\SelfDefine\Common.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="DataHelp">
+      <HintPath>..\bin\SelfDefine\DataHelp.dll</HintPath>
+    </Reference>
+    <Reference Include="Domain.CommonData">
+      <HintPath>..\bin\SelfDefine\Domain.CommonData.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.2.0-beta1\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0-beta1\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FluorineFx">
+      <HintPath>..\bin\FluorineFx.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Window.DataHelper">
+      <HintPath>..\bin\Window.DataHelper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConfigItem.cs" />
+    <Compile Include="TestClass.cs" />
+    <Compile Include="Unity\DADefineHelper.cs" />
+    <Compile Include="DelegateFun.cs" />
+    <Compile Include="Friend.cs" />
+    <Compile Include="lib\HttpHelper.cs" />
+    <Compile Include="lib\HttpS.cs" />
+    <Compile Include="lib\lxwHttp.cs" />
+    <Compile Include="lib\LxwHttpSocket.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm_Arg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm_Convert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm_Cookie.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm_Fun.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm_Http.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm_Message.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm_Robot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm_Service.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Unity\HttpClientExt.cs" />
+    <Compile Include="Unity\JsonHelper.cs" />
+    <Compile Include="Unity\ReflectionHelper.cs" />
+    <Compile Include="Unity\XmlDataHelper.cs" />
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AppSettings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="Icon\add.png" />
+    <Content Include="PerfCenterCpl.ico" />
+    <EmbeddedResource Include="WebChatFriend.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="需要完成的功能？.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebChatData\WebChatData.IDAManage\WebChatData.IDAManage.csproj">
+      <Project>{477ca7f7-0731-45f7-be37-44e9acdd681a}</Project>
+      <Name>WebChatData.IDAManage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebChatData\WebChatData.IDAService\WebChatData.IDAService.csproj">
+      <Project>{918d41ae-0e72-45c0-9f2a-f078d1c22327}</Project>
+      <Name>WebChatData.IDAService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebChatData\WebChatData.Model\WebChatData.Model.csproj">
+      <Project>{cbdb50bd-bb86-4fe9-b317-457edbb8ed3e}</Project>
+      <Name>WebChatData.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebChatData\WebChatData.MssqlDAService\WebChatData.MssqlDAService.csproj">
+      <Project>{bacf561c-30c6-420f-9894-12a469ce6340}</Project>
+      <Name>WebChatData.MssqlDAService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

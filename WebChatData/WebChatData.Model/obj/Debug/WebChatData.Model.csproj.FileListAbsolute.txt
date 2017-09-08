@@ -1,0 +1,7 @@
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.Model\bin\Debug\WebChatData.Model.dll
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.Model\bin\Debug\WebChatData.Model.pdb
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.Model\bin\Debug\EntityFramework.dll
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.Model\bin\Debug\EntityFramework.xml
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.Model\obj\Debug\WebChatData.Model.dll
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.Model\obj\Debug\WebChatData.Model.pdb
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.Model\obj\Debug\WebChatData.Model.csprojResolveAssemblyReference.cache

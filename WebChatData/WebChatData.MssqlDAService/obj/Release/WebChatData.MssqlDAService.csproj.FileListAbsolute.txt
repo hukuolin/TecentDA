@@ -1,0 +1,11 @@
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\bin\Release\WebChatData.MssqlDAService.dll
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\bin\Release\WebChatData.MssqlDAService.pdb
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\bin\Release\EntityFramework.dll
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\bin\Release\WebChatData.IDAService.dll
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\bin\Release\WebChatData.Model.dll
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\bin\Release\WebChatData.IDAService.pdb
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\bin\Release\WebChatData.Model.pdb
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\bin\Release\EntityFramework.xml
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\obj\Release\WebChatData.MssqlDAService.csprojResolveAssemblyReference.cache
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\obj\Release\WebChatData.MssqlDAService.dll
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\obj\Release\WebChatData.MssqlDAService.pdb

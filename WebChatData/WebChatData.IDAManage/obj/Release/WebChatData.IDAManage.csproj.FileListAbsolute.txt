@@ -1,0 +1,9 @@
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.IDAManage\bin\Release\WebChatData.IDAManage.dll
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.IDAManage\bin\Release\WebChatData.IDAManage.pdb
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.IDAManage\bin\Release\WebChatData.Model.dll
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.IDAManage\bin\Release\EntityFramework.dll
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.IDAManage\bin\Release\WebChatData.Model.pdb
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.IDAManage\bin\Release\EntityFramework.xml
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.IDAManage\obj\Release\WebChatData.IDAManage.csprojResolveAssemblyReference.cache
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.IDAManage\obj\Release\WebChatData.IDAManage.dll
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.IDAManage\obj\Release\WebChatData.IDAManage.pdb

@@ -1,0 +1,62 @@
+Request URL:https://file.wx.qq.com/cgi-bin/mmwebwx-bin/webwxuploadmedia?f=json
+Request Headers
+Provisional headers are shown
+Content-Type:multipart/form-data; boundary=----WebKitFormBoundarykBukSxm9qcKaUYS8
+Origin:https://wx.qq.com
+Referer:https://wx.qq.com/
+User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36
+Query String Parameters
+view source
+view URL encoded
+f:json
+Request Payload
+------WebKitFormBoundarykBukSxm9qcKaUYS8
+Content-Disposition: form-data; name="id"
+
+WU_FILE_0
+------WebKitFormBoundarykBukSxm9qcKaUYS8
+Content-Disposition: form-data; name="name"
+
+成都-赵雷.mp3
+------WebKitFormBoundarykBukSxm9qcKaUYS8
+Content-Disposition: form-data; name="type"
+
+audio/mp3
+------WebKitFormBoundarykBukSxm9qcKaUYS8
+Content-Disposition: form-data; name="lastModifiedDate"
+
+Sun Jun 04 2017 23:11:37 GMT+0800 (中国标准时间)
+------WebKitFormBoundarykBukSxm9qcKaUYS8
+Content-Disposition: form-data; name="size"
+
+13149465
+------WebKitFormBoundarykBukSxm9qcKaUYS8
+Content-Disposition: form-data; name="chunks"
+
+26
+------WebKitFormBoundarykBukSxm9qcKaUYS8
+Content-Disposition: form-data; name="chunk"
+
+0
+------WebKitFormBoundarykBukSxm9qcKaUYS8
+Content-Disposition: form-data; name="mediatype"
+
+doc
+------WebKitFormBoundarykBukSxm9qcKaUYS8
+Content-Disposition: form-data; name="uploadmediarequest"
+
+{"UploadType":2,"BaseRequest":{"Uin":2266323382,"Sid":"NObbjMxxQ8znqMgc","Skey":"@crypt_45ae67ad_54fd20f8efcc10922495a76b4f4c2486","DeviceID":"e240994702951788"},"ClientMediaId":1496589330012,"TotalLen":13149465,"StartPos":0,"DataLen":13149465,"MediaType":4,"FromUserName":"@fcc986f054fc9f84f9be09c221d726541dc899eaf38449a212e45f4f362e8ac5","ToUserName":"@b979dcf60a4a48558dab77c18f95f962a51121017fdee9b50f0cdd75d49d75cf","FileMd5":"7a28aea39b3ae466232e0c760015374d"}
+------WebKitFormBoundarykBukSxm9qcKaUYS8
+Content-Disposition: form-data; name="webwx_data_ticket"
+
+gSeUIoVLiYjgxSAAp2S25ikW
+------WebKitFormBoundarykBukSxm9qcKaUYS8
+Content-Disposition: form-data; name="pass_ticket"
+
+undefined
+------WebKitFormBoundarykBukSxm9qcKaUYS8
+Content-Disposition: form-data; name="filename"; filename="成都-赵雷.mp3"
+Content-Type: application/octet-stream
+
+
+------WebKitFormBoundarykBukSxm9qcKaUYS8--

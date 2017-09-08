@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<enums>
+  <enum key="gender">
+    <item key="0" value="未知"/>
+    <item key="1" value="男"/>
+    <item key="2" value="女"/>
+  </enum>
+</enums>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebChat>
+  <items key="MemberList">
+    <item key="Uin" value="编号" hidden="true"/> <!--只有hidden=true才不显示该列-->
+    <item key="GroupSign" value="分类" hidden="false"/>
+    <item key="UserName" value="用户名" hidden="true"/>
+    <item key="NickName" value="昵称" hidden="false"/>
+    <item key="HeadImgUrl" value="头像地址" hidden="true"/>
+    <item key="ContactFlag" value="联系标识" hidden="true"/>
+    <item key="MemberCount" value="组员数量" hidden="true"/>
+    <item key="RemarkName" value="备注" hidden="false"/>
+    <item key="HideInputBarFlag" value="隐藏输入按钮" hidden="true"/>
+    <item key="Sex" value="性别" hidden="false"/> <!--0 未设置 1 男 2 女-->
+    <item key="Signature" value="签名" hidden="false"/>
+    <item key="VerifyFlag" value="验证码" hidden="true"/>
+    <item key="OwnerUin" value="私人码" hidden="true"/>
+    <item key="PYInitial" value="拼音首字母大写" hidden="true"/>
+    <item key="PYQuanPin" value="拼音全拼" hidden="true"/>
+    <item key="RemarkPYInitial" value="备注拼音首字母" hidden="true"/>
+    <item key="RemarkPYQuanPin" value="备注全拼" hidden="true"/>
+    <item key="StarFriend" value="" hidden="true"/>
+    <item key="AppAccountFlag" value="" hidden="true"/>
+    <item key="Statues" value="账户状态" hidden="true"/>
+    <item key="AttrStatus" value="" hidden="true"/>
+    <item key="Province" value="省" hidden="true"/>
+    <item key="City" value="城市" hidden="true"/>
+    <item key="Alias" value="微信id" hidden="false"/>
+    <item key="SnsFlag" value="" hidden="true"/>
+    <item key="UniFriend" value="" hidden="true"/>
+    <item key="DisplayName" value="" hidden="true"/>
+    <item key="ChatRoomId" value="" hidden="true"/>
+    <item key="KeyWord" value="" hidden="true"/>
+    <item key="EncryChatRoomId" value="" hidden="true"/>
+    <item key="IsOwner" value="" hidden="true"/>
+  </items>
+</WebChat>
