@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<appsetting>
+  <!--查询微信消息的接口-->
+  <add key="QueryWebChatMsgUrlGet" value="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxbatchgetcontact?type=ex&amp;r={timeMils}&amp;pass_ticket={ticket}"/>
+  <!--获取登录的key-->
+  <add key="GetTicketCodeUrlGet" value="https://login.wx.qq.com/cgi-bin/mmwebwx-bin/login?loginicon=true&amp;uuid=gem3njVMkw==&amp;tip=0&amp;r=1673746035&amp;_=1510154611313"/>
+  <add key="QueryTicketCodeUrlGet" value="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?ticket={ticket}&amp;uuid={uuid}&amp;lang=zh_CN&amp;scan={scan}&amp;fun=new&amp;version=v2"/>
+  
+</appsetting>

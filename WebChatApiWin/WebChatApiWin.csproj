@@ -144,12 +144,14 @@
     <EmbeddedResource Include="AppSettings.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Content Include="DeveloperDoc\微信登录获取tocken.txt" />
     <Content Include="Icon\add.png" />
     <Content Include="PerfCenterCpl.ico" />
     <EmbeddedResource Include="WebChatFriend.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Content Include="AppConfig\WebChatAppCfg.xml" />
     <Content Include="需要完成的功能？.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +172,7 @@
       <Name>WebChatData.MssqlDAService</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

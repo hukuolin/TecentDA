@@ -1,0 +1,1 @@
+<error><ret>0</ret><message></message><skey>@crypt_45ae67ad_05d5f47090c8a7be9d5415527aee6b50</skey><wxsid>EL8fDiT9FC07Nlh/</wxsid><wxuin>2266323382</wxuin><pass_ticket>F8OjPxNrm%2FTUr3QzXx5mzpxCMCh5Fl7J%2BG5xi3RVjcNuMSmofqWVwXtUraaoPoRw</pass_ticket><isgrayscale>1</isgrayscale></error>

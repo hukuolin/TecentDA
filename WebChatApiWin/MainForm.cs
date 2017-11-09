@@ -171,14 +171,18 @@ namespace WebChatApiWin
                     }
 
                     SendHeader(httpclient, url_login[1]);
-                    var task = httpclient.GetStringAsync(ReplaceKey(url_login[0]));
+                    string getLoginKeyUrl=ReplaceKey(url_login[0]);
+                    System.Threading.Tasks.Task<HttpResponseMessage> msg = httpclient.GetAsync(getLoginKeyUrl);
+                    HttpResponseMessage hrm= msg.Result;
+                    var task = httpclient.GetStringAsync(getLoginKeyUrl);
                     var result = task.Result;
 
                     if (result.IndexOf("window.redirect_uri=") != -1)
                     {
                         time.Stop();
                         redirect_uri = GetResultString(result, "\"(.*?)\"");
-
+                        GetVerifyKey(redirect_uri);
+                       // string lisence= httpclient.GetStringAsync(redirect_uri).Result;//直接使用重定向的URL进行访问时提示浏览器版本过低
                         if (redirect_uri.IndexOf("wx2.qq.com")!=-1)
                             WXNUMBER = "2";
 
@@ -1001,6 +1005,69 @@ namespace WebChatApiWin
                 }).ToList();
             IWebFriendService web = new WebFriendService("TencentWebChatDAConnString");
             web.InsertList(fas);
+        }
+        void QueryGroupMember() 
+        {
+            string skey = step4xml.skey;
+            string url = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxbatchgetcontact?type=ex&r=1505052926468";
+            var request = @"Request URL:https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxbatchgetcontact?type=ex&r=1505052926468
+Request Method:POST
+Status Code:200 OK
+Remote Address:182.254.78.160:443
+Referrer Policy:no-referrer-when-downgrade
+Response Headers
+view source
+Connection:keep-alive
+Content-Encoding:gzip
+Content-Length:7276
+Content-Type:text/plain
+Request Headers
+view source
+Accept:application/json, text/plain, */*
+Accept-Encoding:gzip, deflate, br
+Accept-Language:zh-CN,zh;q=0.8
+Connection:keep-alive
+Content-Length:8215
+Content-Type:application/json;charset=UTF-8
+Cookie:tvfe_boss_uuid=1e6199e1d2117b2e; pgv_pvi=2689650688; RK=jY8eVEcaan; eas_sid=D175U044s0B9N5T0M4i788g0p9; ptcz=5574052159393dcaff18034b6297860bf1d967208ee4ad2d010049712f34c236; pt2gguin=o0158055983; ptui_loginuin=3346910365; o_cookie=158055983; pgv_pvid=6691931733; pgv_si=s8835954688; webwxuvid=bdc0ad25db9c3d1d360bdf092781d16b0dd557e9fb0a025e7d60768c394787a8d04bfe28f11ce423a2b2eec1f2f1c53f; webwx_auth_ticket=CIsBENOq5pkOGoABdTmJQY4CbsKm12nphdZ6MrRzNW/dy6xFxxmL+g961XL5D0pmKSpA2QVPa3nYYd9WIcs8QzpVXOdgMSej/B6ko2vWZWbuTn79Ta1uQOnrDjeX0DYzvqYFYbuUbAs71Fxwsx472ImRsScZ6yUylrJ1Agd730kYMwdp7bU8GP58rQI=; wxloadtime=1505052697_expired; mm_lang=zh_CN; MM_WX_NOTIFY_STATE=1; MM_WX_SOUND_STATE=1; wxpluginkey=1505038321; wxuin=2266323382; wxsid=IyK64UOM3Q+ARxUP; webwx_data_ticket=gSdyWtElQHnLQDVNe1B3DP4C
+Host:wx.qq.com
+Origin:https://wx.qq.com
+Referer:https://wx.qq.com/
+User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36
+Query String Parameters
+view source
+view URL encoded
+type:ex
+r:1505052926468
+Request Payload
+view source
+Request Payload
+BaseRequest :{
+DeviceID:e203048444707618
+Sid:IyK64UOM3Q+ARxUP
+Skey:@crypt_45ae67ad_b3301bd36372109c8a5e1e149fe4d473
+Uin:2266323382
+}
+Count:50
+        List:[
+                {
+                    EncryChatRoomId:@@7db361ea0fd95ffcbdd04a401cfd6f6c6ce450f838fc498a3d1802150a15c4f7
+                    UserName:@0f92446a7d84c941c1b613ad3f0c16a1018663ef6080e960206b88e0070321c6
+                }
+        ]
+";// List 中数据含义  EncryChatRoomId 群组ID，UserName要查询信息的成员标识
+        }
+        void GetVerifyKey(string loginerVerifyCodeUrl) 
+        {
+            string header = @"Accept:application/json, text/plain, */*
+Accept-Encoding:gzip, deflate, br
+Accept-Language:zh-CN,zh;q=0.8
+Connection:keep-alive
+Cookie:webwxuvid=d463ab0e41ca8a3c0dc01c45fb59c6f34917159997462a9b7b33f7e0b3366c4c5805d8ac0975f52ad297fccfd2561c24; pgv_pvi=7449204736; webwx_auth_ticket=CIsBEOursswGGoABz2gQ86/+i5eCZnTyuFyc+AbV1xoOMPruKy8U4zwAfTgF0LtNN7ax7L6vQrjulvYvPU0qgKkuzoBpXYclJXjryDIob0w5018xsxmIV0Iq68/puNtIG19HodRMCC6wNiNTaU1h/r2fH+0PVybV4a2U+RoCC4qABsixgHEg3B4CPCQ=; last_wxuin=2266323382; wxloadtime=1510155259_expired; wxpluginkey=1510136162; wxuin=2266323382; login_frequency=0; refreshTimes=2; mm_lang=zh_CN; MM_WX_NOTIFY_STATE=1; MM_WX_SOUND_STATE=1
+Host:wx.qq.com
+Referer:https://wx.qq.com/?&lang=zh_CN
+User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36";
+            string text= HttpClientExt.RunGetContainerHeader(loginerVerifyCodeUrl, header);
         }
     }
 }
