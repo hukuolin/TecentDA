@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.IO;
+using System.Configuration;
+using Infrastructure.ExtService;
 namespace WebChatApiWin
 {
-    public class XmlDocumentDataHelper
+    public  class XmlDocumentDataHelper
     {//xml数据读取帮助
         public static List<Dictionary<string, string>> ReadXmlNodeItem(string xmlFile, string node) 
         {
@@ -40,6 +42,16 @@ namespace WebChatApiWin
                 nodes.Add(nodeItem);
             }
             return nodes;
+        }
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public static Dictionary<string, string> GetWebChatCfg() 
+        {
+            string releative=ConfigurationManager.AppSettings["WebChatConfigDir"];
+            string rootName=ConfigurationManager.AppSettings["WebChatConfigRootName"];
+            return XmlFileHelper.ReadAppsettingSimulateConfig(NowAppDirHelper.GetNowAppDir(AppCategory.WinApp) + "/" + releative, rootName, "key", "value");
         }
     }
 }

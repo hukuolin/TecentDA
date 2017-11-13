@@ -3,7 +3,31 @@
   <!--查询微信消息的接口-->
   <add key="QueryWebChatMsgUrlGet" value="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxbatchgetcontact?type=ex&amp;r={timeMils}&amp;pass_ticket={ticket}"/>
   <!--获取登录的key-->
-  <add key="GetTicketCodeUrlGet" value="https://login.wx.qq.com/cgi-bin/mmwebwx-bin/login?loginicon=true&amp;uuid=gem3njVMkw==&amp;tip=0&amp;r=1673746035&amp;_=1510154611313"/>
+  <add key="GetTicketCodeUrlGet"   value="https://login.wx.qq.com/cgi-bin/mmwebwx-bin/login?loginicon=true&amp;uuid=gem3njVMkw==&amp;tip=0&amp;r=1673746035&amp;_=1510154611313"/>
   <add key="QueryTicketCodeUrlGet" value="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?ticket={ticket}&amp;uuid={uuid}&amp;lang=zh_CN&amp;scan={scan}&amp;fun=new&amp;version=v2"/>
+
+  <!--查询微信消息 实例：https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid=H/aYQRrln0ccrp2A&skey=@crypt_8ac4725d_3cdc1544ca32c8cdbacd31d374dbf163-->
+  <add key="QueryWebChatMsgUrlPost" value="https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid={wxsid}&amp;skey={skey}&amp;pass_ticket={pass_ticket}&amp;lang=zh_CN"/>
+  <!--查询到的  用户验证码
+
+  <error>
+    <ret>0</ret>
+    <message></message>
+    <skey>@crypt_8ac4725d_98c36f74ed6d0418ddffe29918bc4270</skey>
+    <wxsid>nbOn4n23dFStNorD</wxsid>
+    <wxuin>2048926870</wxuin>
+    <pass_ticket>kQxc5GKPiSE2Fnxw0ay6FzfisLNcFErbUE1usaP%2BlmO5UGiW6yz9u6BIyShiffg1</pass_ticket>
+    <isgrayscale>1</isgrayscale>
+  </error>-->
+  <!--检索时使用的关键字
+  https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid=nbOn4n23dFStNorD&skey=@crypt_8ac4725d_98c36f74ed6d0418ddffe29918bc4270&lang=zh_CN&pass_ticket=kQxc5GKPiSE2Fnxw0ay6FzfisLNcFErbUE1usaP%252BlmO5UGiW6yz9u6BIyShiffg1
+  
+  https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid=nbOn4n23dFStNorD&skey=@crypt_8ac4725d_98c36f74ed6d0418ddffe29918bc4270&lang=zh_CN&pass_ticket=kQxc5GKPiSE2Fnxw0ay6FzfisLNcFErbUE1usaP%252BlmO5UGiW6yz9u6BIyShiffg1
+  -->
+  <add key="WebChatMsgSyncKeyPost" value="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxinit?r={newDate}&amp;lang=zh_CN&amp;pass_ticket={pass_ticket}"/>
+  <!--读取消息使用的消息key来源
+<error><ret>0</ret><message></message><skey>@crypt_45ae67ad_708d9243f352095128e13f55ea5a801d</skey><wxsid>Mldc3mOBHtLswpyo</wxsid><wxuin>2266323382</wxuin><pass_ticket>bOv0heP2UF0WsqYAaOuu3kpMvhMn1w0PYAbLaKK%2B2bKItOHZfhD3HEMiQJXzKtRZ</pass_ticket><isgrayscale>1</isgrayscale></error>
+
+  https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxinit?r=1241337912&lang=zh_CN&pass_ticket=bOv0heP2UF0WsqYAaOuu3kpMvhMn1w0PYAbLaKK%252B2bKItOHZfhD3HEMiQJXzKtRZ-->
   
 </appsetting>

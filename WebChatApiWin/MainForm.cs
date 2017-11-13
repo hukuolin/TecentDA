@@ -25,6 +25,11 @@ using DataHelp;
 using WebChatData.MssqlDAService;
 using WebChatData.IDAService;
 using DataHelp;
+using Common.Data;
+using Domain.CommonData;
+using Infrastructure.ExtService;
+using DataHelp;
+using QuartzJobService;
 namespace WebChatApiWin
 {
     public partial class MainForm : Form
@@ -43,6 +48,8 @@ namespace WebChatApiWin
         Friend mySelf = new Friend();
         private Dictionary<string, string> _GenderDesc;
         bool UseSqlDA=ConfigurationManager.AppSettings["UseSqlDA"]=="true"?true:false;
+        string GetLoginVerifyCodeUrl = string.Empty;
+        Dictionary<string, string> webChatSampleCfg = new Dictionary<string, string>();
         protected Dictionary<string, string> GenderDes 
         {
             get 
@@ -101,6 +108,7 @@ namespace WebChatApiWin
         {
             InitializeComponent();
             InitShowElement(ControlCategory.Login.ToString(),true);
+            webChatSampleCfg = XmlDocumentDataHelper.GetWebChatCfg();
             InitColumn(lstFriendData);
             InitColumn(lstSelectFriend);
             jslogin();
@@ -173,6 +181,8 @@ namespace WebChatApiWin
                     SendHeader(httpclient, url_login[1]);
                     string getLoginKeyUrl=ReplaceKey(url_login[0]);
                     System.Threading.Tasks.Task<HttpResponseMessage> msg = httpclient.GetAsync(getLoginKeyUrl);
+                    //提取cookie
+
                     HttpResponseMessage hrm= msg.Result;
                     var task = httpclient.GetStringAsync(getLoginKeyUrl);
                     var result = task.Result;
@@ -181,7 +191,8 @@ namespace WebChatApiWin
                     {
                         time.Stop();
                         redirect_uri = GetResultString(result, "\"(.*?)\"");
-                        GetVerifyKey(redirect_uri);
+                        GetLoginVerifyCodeUrl = redirect_uri;//此时尚未获取到登陆的cookie信息
+                        // GetVerifyKey(redirect_uri);
                        // string lisence= httpclient.GetStringAsync(redirect_uri).Result;//直接使用重定向的URL进行访问时提示浏览器版本过低
                         if (redirect_uri.IndexOf("wx2.qq.com")!=-1)
                             WXNUMBER = "2";
@@ -283,12 +294,11 @@ namespace WebChatApiWin
                 h.AllowAutoRedirect = false;
                 h.CookieContainer = cookieContainer;
                 HttpWebResponse r = (HttpWebResponse)h.GetResponse();
-
-                COOKIES = GetAllCookiesA(cookieContainer);
-                //
+                COOKIES = GetAllCookiesA(cookieContainer);//  'webwxuvid'  'webwx_auth_ticket'  'wxuin' 'mm_lang' 'wxloadtime' 五项  cookie
+                // 然而实际的请求需要项  'pgv_pvi' 'webwxuvid' 'webwx_auth_ticket'  'wxloadtime'  'wxpluginkey'  'wxuin'  'mm_lang'
                 #region 登录成功就查询相关信息
                 string loginIdUrl = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxinit?r=$r$ ";
-                loginIdUrl= loginIdUrl.Replace("$r$", new TestClass().GenerateJsNegate());
+                loginIdUrl = loginIdUrl.Replace("$r$", new TestClass().GenerateJsNegate());
                 RequestHttp(loginIdUrl, cookieContainer);
                 #endregion
 
@@ -299,6 +309,15 @@ namespace WebChatApiWin
                     step4xml = Xml2Json<Step4XML>(value);
                 }
                 r.Close();
+                if (!string.IsNullOrEmpty(GetLoginVerifyCodeUrl))//登陆成功之后获取登录者的登录tocken
+                {
+                    QuartzJob job = new QuartzJob();
+                    BaseDelegate bd=new BaseDelegate(CallGetVerifyKey);
+                    object[] funParam=new object[]{GetLoginVerifyCodeUrl,DeviceID};
+                    object[] param=new object[]{bd,funParam };
+                    job.CreateJobWithParam<JobDelegate<DADefineHelper>>(param,DateTime.Now,2,-1);
+                   // GetVerifyKey(GetLoginVerifyCodeUrl, DeviceID);
+                }
             }
         }
         public void RequestHttp(string url, CookieContainer cookieContainer)
@@ -1057,17 +1076,58 @@ Count:50
         ]
 ";// List 中数据含义  EncryChatRoomId 群组ID，UserName要查询信息的成员标识
         }
-        void GetVerifyKey(string loginerVerifyCodeUrl) 
+        void CallGetVerifyKey(object obj)
         {
+            if (lstProcess.InvokeRequired)
+            {
+                BaseDelegate bd = new BaseDelegate(CallGetVerifyKey);
+                this.Invoke(bd, obj);
+                // CallGetVerifyKey(obj);
+                return;
+            }
+            object[] o = obj as object[];
+            GetVerifyKey((string)o[0],(string) o[1]);
+        }
+        void GetVerifyKey(string loginerVerifyCodeUrl,string deviceId) 
+        {//此处需要一个定时作业进行消息管理
             string header = @"Accept:application/json, text/plain, */*
 Accept-Encoding:gzip, deflate, br
 Accept-Language:zh-CN,zh;q=0.8
 Connection:keep-alive
-Cookie:webwxuvid=d463ab0e41ca8a3c0dc01c45fb59c6f34917159997462a9b7b33f7e0b3366c4c5805d8ac0975f52ad297fccfd2561c24; pgv_pvi=7449204736; webwx_auth_ticket=CIsBEOursswGGoABz2gQ86/+i5eCZnTyuFyc+AbV1xoOMPruKy8U4zwAfTgF0LtNN7ax7L6vQrjulvYvPU0qgKkuzoBpXYclJXjryDIob0w5018xsxmIV0Iq68/puNtIG19HodRMCC6wNiNTaU1h/r2fH+0PVybV4a2U+RoCC4qABsixgHEg3B4CPCQ=; last_wxuin=2266323382; wxloadtime=1510155259_expired; wxpluginkey=1510136162; wxuin=2266323382; login_frequency=0; refreshTimes=2; mm_lang=zh_CN; MM_WX_NOTIFY_STATE=1; MM_WX_SOUND_STATE=1
-Host:wx.qq.com
-Referer:https://wx.qq.com/?&lang=zh_CN
+Host:wx2.qq.com
+Referer:https://wx2.qq.com/?&lang=zh_CN
 User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36";
-            string text= HttpClientExt.RunGetContainerHeader(loginerVerifyCodeUrl, header);
+            loginerVerifyCodeUrl += "&fun=new&version=v2&lang=zh_CN";
+            string text = HttpClientExt.RunPosterContainerHeader(loginerVerifyCodeUrl, header, cookieContainer);
+            text.CreateLog(ELogType.LogicLog);
+            WebChatLoginTocken tocken = new WebChatLoginTocken();
+            tocken.GetWebChatLoginTocket(text);
+            //将数据填入到查询接口中
+            string queryMsgUrlFormat = webChatSampleCfg["QueryWebChatMsgUrlPost"];
+            string msgUrl= tocken.GenerateQueryWebChatMsgUrl(queryMsgUrlFormat);
+            QueryWebChatBaseRequestParam bp = new QueryWebChatBaseRequestParam() 
+            {
+                DeviceID=deviceId,
+                Sid=tocken.wxsid ,//此参数绑定不正确
+                Skey=tocken.skey,
+                Uin = new TestClass().GetJsNewData()
+            };
+            QueryWebChatMsgObjectParam param = new QueryWebChatMsgObjectParam() 
+            {
+                BaseRequest=bp,
+                rr=new TestClass().GetJsNewData()
+            };
+            //首先获取查询消息列表的参数
+            string keyParamFromUrl = webChatSampleCfg["WebChatMsgSyncKeyPost"];
+            string requestUrl = keyParamFromUrl.Replace("{newDate}", new TestClass().GetJsNewData()).Replace("{pass_ticket}", tocken.pass_ticket);
+            string paramJson = param.ConvertJson();
+            string SyncKey = HttpClientExt.RunPosterContainerHeaderHavaParam(requestUrl, header, paramJson, cookieContainer); //HttpClientExt.RunPost(requestUrl, paramJson);
+            SyncKey.CreateLog(ELogType.ParamLog);
+            //getFormateSyncCheckKey  
+            
+            //string msg= HttpClientExt.RunPost(msgUrl, paramJson);
+
+            //msg.CreateLog(ELogType.DataLog);
         }
     }
 }

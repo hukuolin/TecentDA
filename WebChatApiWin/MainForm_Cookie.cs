@@ -29,7 +29,6 @@ namespace WebChatApiWin
         static Dictionary<string,string> GetAllCookiesA(CookieContainer cc)
         {
             Dictionary<string, string> lstCookies = new Dictionary<string, string>();
-
             Hashtable table = (Hashtable)cc.GetType().InvokeMember("m_domainTable", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.GetField | System.Reflection.BindingFlags.Instance, null, cc, new object[] { });
             StringBuilder sb = new StringBuilder();
             foreach (object pathList in table.Values)

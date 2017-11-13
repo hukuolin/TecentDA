@@ -12,6 +12,16 @@ namespace WebChatApiWin
         {
             get 
             {
+                return LoggerDefaultDir;
+            }
+        }
+        /// <summary>
+        /// 默认日志路径
+        /// </summary>
+        public static string LoggerDefaultDir 
+        {
+            get 
+            {
                 string log = ConfigurationManager.AppSettings["WebChatLogger"];
                 if (string.IsNullOrEmpty(log))
                 {
@@ -19,16 +29,16 @@ namespace WebChatApiWin
                     string cur = dir;
                     int forea = 4;
                     DirectoryInfo di = new DirectoryInfo(dir);
-                   // string root = di.Root.Name;
+                    // string root = di.Root.Name;
                     while (forea > 0)
                     {
-                       cur= di.Parent.FullName;
-                       di = new DirectoryInfo(cur);
-                       forea--;
+                        cur = di.Parent.FullName;
+                        di = new DirectoryInfo(cur);
+                        forea--;
                     }
                     log = cur;
                 }
-                return log+"\\"+DateTime.Now.ToString("yyyyMMddHH");
+                return log + "\\" + DateTime.Now.ToString("yyyyMMddHH");
             }
         }
     }

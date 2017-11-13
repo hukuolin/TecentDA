@@ -6,6 +6,8 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.IO;
+using Domain.CommonData;
+using Infrastructure.ExtService;
 namespace WebChatApiWin
 {
     public class HttpClientExt
@@ -33,15 +35,12 @@ namespace WebChatApiWin
             client.Dispose();
             return result;
         }
-        /// <summary>
-        ///可选择提供请求头
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="head"></param>
-        /// <returns></returns>
-        public static string RunGetContainerHeader(string url,string head) 
+        static void FillHttpWebRequestHead(HttpWebRequest request, string head)
         {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            if (string.IsNullOrEmpty(head))
+            {
+                return;
+            }
             string[] arr = head.Replace("\r", "\n").Replace("\n\n", "\n").Split('\n');
             foreach (string s in arr)
             {
@@ -70,6 +69,20 @@ namespace WebChatApiWin
                     { }
                 }
             }
+        }
+        /// <summary>
+        ///可选择提供请求头
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public static string RunPosterContainerHeader(string url,string head,CookieContainer cookie=null) 
+        {
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            request.Method = "POST";
+            if (cookie != null)
+                request.CookieContainer = cookie;
+            FillHttpWebRequestHead(request, head);
             WebResponse response = request.GetResponse();
             Stream st= response.GetResponseStream();
             Stream stm = new System.IO.Compression.GZipStream(response.GetResponseStream(), System.IO.Compression.CompressionMode.Decompress);
@@ -80,8 +93,43 @@ namespace WebChatApiWin
              
              */
             string text= sr.ReadToEnd();
+            /*
+            查询结果
+             <error><ret>0</ret><message></message><skey>@crypt_45ae67ad_38b3f61167869aa2d95ec03017fc3b1b</skey><wxsid>qF/6PWxWsfeg/ocY</wxsid><wxuin>2266323382</wxuin><pass_ticket>F6FGYITm40nVvlvflrqhdclefVDWwmFquTZrXRah9CKwCZhHCqtqFmiQNYg2t93W</pass_ticket><isgrayscale>1</isgrayscale></error>
+             */
             sr.Close();
             response.Close();
+            string dir=ConfigItem.LoggerDefaultDir;
+            if (string.IsNullOrEmpty(dir))
+                dir = NowAppDirHelper.GetNowAppDir(AppCategory.WinApp);
+            LoggerWriter.CreateLogFile(text, dir, ELogType.SessionOrCookieLog);
+            return text;
+        }
+        public static string RunPosterContainerHeaderHavaParam(string url, string head,string json, CookieContainer cookie = null)
+        {
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            request.Method = "POST";
+            if (cookie != null)
+                request.CookieContainer = cookie;
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            byte[] jsonStream = Encoding.UTF8.GetBytes(json);
+            request.ContentLength = jsonStream.Length;
+            using (Stream requestSt = request.GetRequestStream())
+            { //进行请求时的流信息
+                requestSt.Write(jsonStream, 0, jsonStream.Length);
+                requestSt.Close();
+            }
+            FillHttpWebRequestHead(request, head);
+            WebResponse response = request.GetResponse();
+            Stream st = response.GetResponseStream();
+            StreamReader sr = new StreamReader(st, Encoding.UTF8);
+            string text = sr.ReadToEnd();
+            sr.Close();
+            response.Close();
+            string dir = ConfigItem.LoggerDefaultDir;
+            if (string.IsNullOrEmpty(dir))
+                dir = NowAppDirHelper.GetNowAppDir(AppCategory.WinApp);
+            LoggerWriter.CreateLogFile(text, dir, ELogType.SessionOrCookieLog);
             return text;
         }
     }

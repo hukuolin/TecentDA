@@ -35,6 +35,12 @@
     <Reference Include="Common.Data">
       <HintPath>..\bin\SelfDefine\Common.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Logging">
+      <HintPath>..\bin\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\bin\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="DataHelp">
       <HintPath>..\bin\SelfDefine\DataHelp.dll</HintPath>
     </Reference>
@@ -50,6 +56,15 @@
     </Reference>
     <Reference Include="FluorineFx">
       <HintPath>..\bin\FluorineFx.dll</HintPath>
+    </Reference>
+    <Reference Include="Infrastructure.ExtService">
+      <HintPath>..\bin\Infrastructure.ExtService.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\bin\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="QuartzJobService">
+      <HintPath>..\bin\QuartzJobService.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -71,6 +86,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppLoggerService.cs" />
     <Compile Include="ConfigItem.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="Unity\DADefineHelper.cs" />
@@ -116,6 +132,7 @@
     <Compile Include="Unity\JsonHelper.cs" />
     <Compile Include="Unity\ReflectionHelper.cs" />
     <Compile Include="Unity\XmlDataHelper.cs" />
+    <Compile Include="Unity\WebChatLoginTocken.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -144,6 +161,7 @@
     <EmbeddedResource Include="AppSettings.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Content Include="DeveloperDoc\Web.js" />
     <Content Include="DeveloperDoc\微信登录获取tocken.txt" />
     <Content Include="Icon\add.png" />
     <Content Include="PerfCenterCpl.ico" />
@@ -151,7 +169,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Content Include="AppConfig\WebChatAppCfg.xml" />
+    <Content Include="AppConfig\WebChatAppCfg.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="需要完成的功能？.txt" />
   </ItemGroup>
   <ItemGroup>

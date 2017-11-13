@@ -33,7 +33,15 @@ namespace WebChatApiWin
             long mils = (tick - utc.Ticks) / 10000;
             return mils;
         }
-
+        /// <summary>
+        /// 获取js表示的 ~new Date  时间戳
+        /// </summary>
+        /// <returns></returns>
+        public string GetJsNewData() 
+        {
+            long mils = GetJsDateNow();
+            return ((long)mils / 1138.8).ToString();
+        }
         /*
          1.获取登录的skey
          * POST https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxinit?r=$r$ 
