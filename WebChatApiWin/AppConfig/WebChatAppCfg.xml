@@ -7,7 +7,12 @@
   <add key="QueryTicketCodeUrlGet" value="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?ticket={ticket}&amp;uuid={uuid}&amp;lang=zh_CN&amp;scan={scan}&amp;fun=new&amp;version=v2"/>
 
   <!--查询微信消息 实例：https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid=H/aYQRrln0ccrp2A&skey=@crypt_8ac4725d_3cdc1544ca32c8cdbacd31d374dbf163-->
-  <add key="QueryWebChatMsgUrlPost" value="https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid={wxsid}&amp;skey={skey}&amp;pass_ticket={pass_ticket}&amp;lang=zh_CN"/>
+  <add key="QueryWebChatMsgUrlPost" value="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid={wxsid}&amp;skey={skey}&amp;lang=zh_CN&amp;pass_ticket={pass_ticket}"/>
+<!--简单接口
+<error><ret>0</ret><message></message><skey>@crypt_45ae67ad_35d19ed0473c64846cb729e4ce4ddae8</skey><wxsid>0cOtatgGXhvxPtRX</wxsid><wxuin>2266323382</wxuin><pass_ticket>X2SOIvp3lEwMFf618qrTfBaMjFx3CccgJpkSjK93L%2By%2Fe8nZ4dR4aLPMLo0q8BmF</pass_ticket><isgrayscale>1</isgrayscale></error>
+
+https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid=0cOtatgGXhvxPtRX&skey=@crypt_45ae67ad_35d19ed0473c64846cb729e4ce4ddae8&lang=zh_CN&pass_ticket=X2SOIvp3lEwMFf618qrTfBaMjFx3CccgJpkSjK93L%252By%252Fe8nZ4dR4aLPMLo0q8BmF
+  -->
   <!--查询到的  用户验证码
 
   <error>

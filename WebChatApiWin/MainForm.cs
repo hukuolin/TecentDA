@@ -1088,7 +1088,7 @@ Count:50
             object[] o = obj as object[];
             GetVerifyKey((string)o[0],(string) o[1]);
         }
-        void GetVerifyKey(string loginerVerifyCodeUrl,string deviceId) 
+        void GetVerifyKey(string loginerVerifyCodeUrl, string deviceId)
         {//此处需要一个定时作业进行消息管理
             string header = @"Accept:application/json, text/plain, */*
 Accept-Encoding:gzip, deflate, br
@@ -1104,30 +1104,43 @@ User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like G
             tocken.GetWebChatLoginTocket(text);
             //将数据填入到查询接口中
             string queryMsgUrlFormat = webChatSampleCfg["QueryWebChatMsgUrlPost"];
-            string msgUrl= tocken.GenerateQueryWebChatMsgUrl(queryMsgUrlFormat);
-            QueryWebChatBaseRequestParam bp = new QueryWebChatBaseRequestParam() 
+            string msgUrl = tocken.GenerateQueryWebChatMsgUrl(queryMsgUrlFormat);
+            QueryWebChatBaseRequestParam bp = new QueryWebChatBaseRequestParam()
             {
-                DeviceID=deviceId,
-                Sid=tocken.wxsid ,//此参数绑定不正确
-                Skey=tocken.skey,
+                DeviceID = deviceId,
+                Sid = tocken.wxsid,//此参数绑定不正确
+                Skey = tocken.skey,
                 Uin = new TestClass().GetJsNewData()
             };
-            QueryWebChatMsgObjectParam param = new QueryWebChatMsgObjectParam() 
+            QueryWebChatMsgObjectParam param = new QueryWebChatMsgObjectParam()
             {
-                BaseRequest=bp,
-                rr=new TestClass().GetJsNewData()
+                BaseRequest = bp,
+                rr = new TestClass().GetJsNewData()
             };
             //首先获取查询消息列表的参数
             string keyParamFromUrl = webChatSampleCfg["WebChatMsgSyncKeyPost"];
             string requestUrl = keyParamFromUrl.Replace("{newDate}", new TestClass().GetJsNewData()).Replace("{pass_ticket}", tocken.pass_ticket);
             string paramJson = param.ConvertJson();
             string SyncKey = HttpClientExt.RunPosterContainerHeaderHavaParam(requestUrl, header, paramJson, cookieContainer); //HttpClientExt.RunPost(requestUrl, paramJson);
-            SyncKey.CreateLog(ELogType.ParamLog);
-            //getFormateSyncCheckKey  
-            
-            //string msg= HttpClientExt.RunPost(msgUrl, paramJson);
 
+            //getFormateSyncCheckKey  
+            TecentWebChatMsgSyncKey syncKeyObj = SyncKey.ConvertObject<TecentWebChatMsgSyncKey>();
+            if (syncKeyObj.BaseResponse.Ret > 0)
+            {//没有待采集的消息
+                return;
+            }
+            //string msg= HttpClientExt.RunPost(msgUrl, paramJson);
+            SyncKey.CreateLog(ELogType.ParamLog);
             //msg.CreateLog(ELogType.DataLog);
+            string url = webChatSampleCfg["QueryWebChatMsgUrlPost"];
+            string msgQueryUrl = tocken.FillStringFromObject(url);//查询消息的URL
+            param.SyncKey = syncKeyObj.SyncKey;
+            string msgQueryPAramJson = param.ConvertJson();
+            string msgResponse = HttpClientExt.RunPosterContainerHeaderHavaParam(msgQueryUrl, header, msgQueryPAramJson, cookieContainer);
+            WebChatMsg msg = msgResponse.ConvertObject<WebChatMsg>();
+           
+
+            msgResponse.CreateLog(ELogType.DataInDBLog);
         }
     }
 }

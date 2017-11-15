@@ -131,6 +131,7 @@
     <Compile Include="Unity\HttpClientExt.cs" />
     <Compile Include="Unity\JsonHelper.cs" />
     <Compile Include="Unity\ReflectionHelper.cs" />
+    <Compile Include="Unity\WebChatMsg.cs" />
     <Compile Include="Unity\XmlDataHelper.cs" />
     <Compile Include="Unity\WebChatLoginTocken.cs" />
     <EmbeddedResource Include="MainForm.resx">
