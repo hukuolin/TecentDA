@@ -15,8 +15,9 @@ namespace WebChatApiWin
         public string SKey { get; set; }
         public TecentBaseResponse BaseResponse { get; set; }
         public MsgProfileItem Profile { get; set; }
+        public List<MsgContent> AddMsgList = new List<MsgContent>();
     }
-    public class Msg
+    public class MsgContent
     {
         public int AppMsgType { get; set; }
         public string Content { get; set; }
@@ -43,7 +44,7 @@ namespace WebChatApiWin
         public string ToUserName { get; set; }//消息接收人
         public string Url { get; set; }
         public int VoiceLength { get; set; }
-        public List<MsgRecommendInfo> RecommendInfo { get; set; }
+        public List<MsgRecommendInfo> RecommendInfo = new List<MsgRecommendInfo>();
         public AppInfoItem AppInfo { get; set; }
     }
     public class AppInfoItem

@@ -9,7 +9,7 @@ namespace WebChatApiWin
 {
     public class WebChatLoginTocken
     {
-        public string ret { get; set; }
+        public int ret { get; set; }
         public string message { get; set; }
         public string skey { get; set; }
         public string wxsid { get; set; }

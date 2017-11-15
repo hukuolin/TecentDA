@@ -47,25 +47,25 @@ namespace WebChatApiWin
         /// </summary>
         Friend mySelf = new Friend();
         private Dictionary<string, string> _GenderDesc;
-        bool UseSqlDA=ConfigurationManager.AppSettings["UseSqlDA"]=="true"?true:false;
+        bool UseSqlDA = ConfigurationManager.AppSettings["UseSqlDA"] == "true" ? true : false;
         string GetLoginVerifyCodeUrl = string.Empty;
         Dictionary<string, string> webChatSampleCfg = new Dictionary<string, string>();
-        protected Dictionary<string, string> GenderDes 
+        protected Dictionary<string, string> GenderDes
         {
-            get 
+            get
             {
                 if (_GenderDesc == null || _GenderDesc.Count == 0)
                 {
                     _GenderDesc = new Dictionary<string, string>();
                     string xml = AppDomain.CurrentDomain.BaseDirectory + "AppSettings.xml";
                     List<Dictionary<string, string>> items = XmlDocumentDataHelper.ReadXmlNodeItem(xml, MapCommonXmlNodeConfigInApp("GenderEnum", "GenderdNodePrimaryKeyValue"));
-                    foreach (Dictionary<string,string> item in items)
+                    foreach (Dictionary<string, string> item in items)
                     {
-                       string[] values= item.Values.ToArray();
-                       if (!_GenderDesc.ContainsKey(values[0])&&values.Length>=2)
-                       {
-                           _GenderDesc.Add(values[0], values[1]);
-                       }
+                        string[] values = item.Values.ToArray();
+                        if (!_GenderDesc.ContainsKey(values[0]) && values.Length >= 2)
+                        {
+                            _GenderDesc.Add(values[0], values[1]);
+                        }
                     }
                 }
                 return _GenderDesc;
@@ -76,9 +76,9 @@ namespace WebChatApiWin
         FriendDataResponse data = new FriendDataResponse();
         protected List<Dictionary<string, string>> ColumnData
         {
-            get 
+            get
             {
-                if (columnData == null || columnData.Count == 0) 
+                if (columnData == null || columnData.Count == 0)
                 {
                     columnData = InitShowColumnInfo(); ;
 
@@ -87,27 +87,27 @@ namespace WebChatApiWin
             }
             set { columnData = value; }
         }
-        public enum ActionTag 
+        public enum ActionTag
         {
-            Common=0,
-            GenerateCodeImage=1,//生成二维码
-            WebChatLogin=2,//登录微信
-            SearchFriendList=3,//获取好友列表
-            SendMsg=4//发送消息
+            Common = 0,
+            GenerateCodeImage = 1,//生成二维码
+            WebChatLogin = 2,//登录微信
+            SearchFriendList = 3,//获取好友列表
+            SendMsg = 4//发送消息
         }
         string format = ConfigurationManager.AppSettings["DateTimeFormat"];
-        
-        enum ControlCategory 
+
+        enum ControlCategory
         {
-            Common=0,
-            Login=1,
-            ShowList=2,
-            SendMsg=-1,
+            Common = 0,
+            Login = 1,
+            ShowList = 2,
+            SendMsg = -1,
         }
         public MainForm()
         {
             InitializeComponent();
-            InitShowElement(ControlCategory.Login.ToString(),true);
+            InitShowElement(ControlCategory.Login.ToString(), true);
             webChatSampleCfg = XmlDocumentDataHelper.GetWebChatCfg();
             InitColumn(lstFriendData);
             InitColumn(lstSelectFriend);
@@ -146,7 +146,7 @@ namespace WebChatApiWin
         {
             return ConfigurationManager.AppSettings[nodeElement] + "[@" + ConfigurationManager.AppSettings["xmlCommonPrimaryKey"] + "=\"" + ConfigurationManager.AppSettings[nodeValue] + "\"]";
         }
-        List<Dictionary<string, string>> InitShowColumnInfo() 
+        List<Dictionary<string, string>> InitShowColumnInfo()
         {
             string xml = AppDomain.CurrentDomain.BaseDirectory + "/WebChatFriend.xml";
 
@@ -172,18 +172,18 @@ namespace WebChatApiWin
                     if (count++ > login_try_times)
                     {
                         time.Stop();
-                        txtTip.Text="错误的次数超过了:" + login_try_times + "次";
+                        txtTip.Text = "错误的次数超过了:" + login_try_times + "次";
                         //time.Enabled = false;
                         //time.Stop();
                         return;
                     }
 
                     SendHeader(httpclient, url_login[1]);
-                    string getLoginKeyUrl=ReplaceKey(url_login[0]);
+                    string getLoginKeyUrl = ReplaceKey(url_login[0]);
                     System.Threading.Tasks.Task<HttpResponseMessage> msg = httpclient.GetAsync(getLoginKeyUrl);
                     //提取cookie
 
-                    HttpResponseMessage hrm= msg.Result;
+                    HttpResponseMessage hrm = msg.Result;
                     var task = httpclient.GetStringAsync(getLoginKeyUrl);
                     var result = task.Result;
 
@@ -191,10 +191,11 @@ namespace WebChatApiWin
                     {
                         time.Stop();
                         redirect_uri = GetResultString(result, "\"(.*?)\"");
+                        ///校验返回内容是否为登录凭据
                         GetLoginVerifyCodeUrl = redirect_uri;//此时尚未获取到登陆的cookie信息
                         // GetVerifyKey(redirect_uri);
-                       // string lisence= httpclient.GetStringAsync(redirect_uri).Result;//直接使用重定向的URL进行访问时提示浏览器版本过低
-                        if (redirect_uri.IndexOf("wx2.qq.com")!=-1)
+                        // string lisence= httpclient.GetStringAsync(redirect_uri).Result;//直接使用重定向的URL进行访问时提示浏览器版本过低
+                        if (redirect_uri.IndexOf("wx2.qq.com") != -1)
                             WXNUMBER = "2";
 
                         //执行第四部
@@ -224,16 +225,16 @@ namespace WebChatApiWin
             if (__1)
             {
                 SendHeader(httpclient, url_jslogin[1]);
-               // var task = httpclient.GetStreamAsync(ReplaceKey(url_jslogin[0]));
+                // var task = httpclient.GetStreamAsync(ReplaceKey(url_jslogin[0]));
                 var result = HttpClientExt.RunGet(ReplaceKey(url_jslogin[0]));
-               // var result = GetDeflateByStream(task.Result, "GBK");
+                // var result = GetDeflateByStream(task.Result, "GBK");
                 UUID = GetCodeString(result, "200", "\"(.*?)\"");
 
-                
+
             }
         }
 
-       
+
         private void doStep4()
         {
             InitShowElement(ControlCategory.SendMsg.ToString());
@@ -257,7 +258,8 @@ namespace WebChatApiWin
             //开启一个timer，一直给我发送信息
             var timer = new System.Timers.Timer();
             timer.Interval = 1000;
-            timer.Elapsed += (o, e) => {
+            timer.Elapsed += (o, e) =>
+            {
                 if (!bFirst)
                 {
                     timer.Interval = 10 * 60 * 1000;
@@ -267,7 +269,7 @@ namespace WebChatApiWin
                         if (s.Value.IndexOf("都好") != -1)
                         {
                             b = true;
-                            SendMsg(s.Key,USER_INFO, DateTime.Now.ToString(), false);
+                            SendMsg(s.Key, USER_INFO, DateTime.Now.ToString(), false);
                             break;
                         }
                     }
@@ -275,7 +277,7 @@ namespace WebChatApiWin
                     if (b == false)
                     {
                         //如果走到这一步，就随机一个人发
-                      //  SendMsg(USER_DI.ElementAt((new Random()).Next(USER_DI.Count())).Key, USER_INFO,DateTime.Now.ToString(), false);
+                        //  SendMsg(USER_DI.ElementAt((new Random()).Next(USER_DI.Count())).Key, USER_INFO,DateTime.Now.ToString(), false);
                     }
                 }
             };
@@ -309,15 +311,24 @@ namespace WebChatApiWin
                     step4xml = Xml2Json<Step4XML>(value);
                 }
                 r.Close();
-                if (!string.IsNullOrEmpty(GetLoginVerifyCodeUrl))//登陆成功之后获取登录者的登录tocken
+                if (string.IsNullOrEmpty(GetLoginVerifyCodeUrl) || !GetLoginVerifyCodeUrl.Contains("webwxnewloginpage"))//登陆成功之后获取登录者的登录tocken
                 {
-                    QuartzJob job = new QuartzJob();
-                    BaseDelegate bd=new BaseDelegate(CallGetVerifyKey);
-                    object[] funParam=new object[]{GetLoginVerifyCodeUrl,DeviceID};
-                    object[] param=new object[]{bd,funParam };
-                    job.CreateJobWithParam<JobDelegate<DADefineHelper>>(param,DateTime.Now,2,-1);
-                   // GetVerifyKey(GetLoginVerifyCodeUrl, DeviceID);
+                    return;
                 }
+                /*
+                     https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?ticket=A-UlGlrnWCqys2myqayFNghP@qrticket_0&uuid=oY-3-4EsAg==&lang=zh_CN&scan=1510751386&fun=new&version=v2&lang=zh_CN
+                     */
+                WebChatLoginTocken tocken = GetLoginTocken(GetLoginVerifyCodeUrl, DeviceID);
+                if (tocken == null)
+                {
+                    return;
+                }
+                QuartzJob job = new QuartzJob();
+                BaseDelegate bd = new BaseDelegate(CallGetVerifyKey);
+                object[] funParam = new object[] { tocken, DeviceID };
+                object[] param = new object[] { bd, funParam };
+                job.CreateJobWithParam<JobDelegate<DADefineHelper>>(param, DateTime.Now, 2, -1);
+                // GetVerifyKey(GetLoginVerifyCodeUrl, DeviceID);
             }
         }
         public void RequestHttp(string url, CookieContainer cookieContainer)
@@ -341,7 +352,7 @@ namespace WebChatApiWin
                 var urlA = "https://webpush[number].weixin.qq.com/cgi-bin/mmwebwx-bin/synccheck?r={time}&skey={SKEY}&sid={SID}&uin={UIN}&deviceid={DeviceID}&synckey={synckey}&_={time}";
 
                 bool bRun = true;
-                
+
                 ThreadPool.QueueUserWorkItem(new WaitCallback(delegate
                 {
                     while (bRun)
@@ -399,7 +410,7 @@ namespace WebChatApiWin
             }
         }
 
-        
+
 
         private void webwxgetcontact()
         {
@@ -412,11 +423,11 @@ namespace WebChatApiWin
                 h.AllowAutoRedirect = false;
                 h.CookieContainer = cookieContainer;
                 //提取全部的cookie
-               
+
                 h.Accept = "application/json, text/plain, */*";
                 HttpWebResponse r = (HttpWebResponse)h.GetResponse();
                 CookieCollection cookies = r.Cookies;
-                
+
                 using (System.IO.StreamReader read = new System.IO.StreamReader(r.GetResponseStream()))
                 {
                     string value = read.ReadToEnd();
@@ -428,7 +439,7 @@ namespace WebChatApiWin
 
                     data = value.ConvertJson<FriendDataResponse>();
                     friendList = data;
-                   
+
 
                     foreach (JavaScriptObject o in arr)
                     {
@@ -438,18 +449,18 @@ namespace WebChatApiWin
                 }
                 r.Close();
                 bool onlyFriend = ckOnlyFriend.Checked;
-                List<Friend> friends=new List<Friend>();
-                IEnumerable <Friend> ef;
+                List<Friend> friends = new List<Friend>();
+                IEnumerable<Friend> ef;
                 if (onlyFriend)
                     ef = data.MemberList.Where(m =>
                     {
-                        m.AliasDesc=  m.UserName.Replace("@", "").Convert16ToString();
+                        m.AliasDesc = m.UserName.Replace("@", "").Convert16ToString();
                         return m.SelfDefineType == FriendDataCategory.Friend;
                     });
                 else
                     ef = data.MemberList;
-                friends= ef.OrderBy(s => s.OrderByName).ToList();
-               // data.MemberList.Sort(data.MemberList)
+                friends = ef.OrderBy(s => s.OrderByName).ToList();
+                // data.MemberList.Sort(data.MemberList)
                 ListBindDataSource(friends);
             }
         }
@@ -460,24 +471,24 @@ namespace WebChatApiWin
             if (__5)
             {
                 SendHeader(httpclient, ReplaceHeaderKey(url_webwxinit[1]));
-                 byte[] bs = Encoding.UTF8.GetBytes(ReplaceHeaderKey(@"{""BaseRequest"":{""Uin"":""{UIN}"",""Sid"":""{SID}"",""Skey"":""{SKEY}"",""DeviceID"":""{DeviceID}""}}"));
-                 string json = ReplaceHeaderKey(@"{""BaseRequest"":{""Uin"":""{UIN}"",""Sid"":""{SID}"",""Skey"":""{SKEY}"",""DeviceID"":""{DeviceID}""}}");
-                 string url = ReplaceKey(url_webwxinit[0]);
-                
+                byte[] bs = Encoding.UTF8.GetBytes(ReplaceHeaderKey(@"{""BaseRequest"":{""Uin"":""{UIN}"",""Sid"":""{SID}"",""Skey"":""{SKEY}"",""DeviceID"":""{DeviceID}""}}"));
+                string json = ReplaceHeaderKey(@"{""BaseRequest"":{""Uin"":""{UIN}"",""Sid"":""{SID}"",""Skey"":""{SKEY}"",""DeviceID"":""{DeviceID}""}}");
+                string url = ReplaceKey(url_webwxinit[0]);
+
                 //var task = httpclient.PostAsync(ReplaceKey(url_webwxinit[0]), new ByteArrayContent(bs));
                 {
-                  //  string value = GetDeflateByStream(task.Result.Content.ReadAsStreamAsync().Result);
+                    //  string value = GetDeflateByStream(task.Result.Content.ReadAsStreamAsync().Result);
                     string value = HttpClientExt.RunPost(url, json);
                     //pick up loginer
                     Loginer loginer = value.ConvertJson<Loginer>();
-                    BaseUser me =loginer.User.ConvertMapModel <User, BaseUser>();
+                    BaseUser me = loginer.User.ConvertMapModel<User, BaseUser>();
                     mySelf = me.ConvertMapModel<BaseUser, Friend>();
                     mySelf.IsOwner = 1;
                     //"Ret": 1100,
                     if (!value.Contains("\"Ret\": 0"))
                     {
                         ShowMsg("没有返回正确的数据，webwxinit错误!");
-                       // throw new Exception("没有返回正确的数据，webwxinit错误!");
+                        // throw new Exception("没有返回正确的数据，webwxinit错误!");
                     }
 
                     //USER_INFO
@@ -492,7 +503,7 @@ namespace WebChatApiWin
                     label1.Text = USER_INFO;
                     USER_DI.Add(USER_INFO, USER_NICKNAME);
 
-                    this.Text = USER_NICKNAME+">>>转发微信机器人 V0.5.1 20170502";
+                    this.Text = USER_NICKNAME + ">>>转发微信机器人 V0.5.1 20170502";
 
                     //SyncKey
                     SyncKey = SubString(value.Replace("\r", "").Replace("\n", ""), "\"SyncKey\": ", "}]}");
@@ -532,7 +543,7 @@ namespace WebChatApiWin
             //}
             {
                 FileStream fs = File.OpenRead(filePath);
-               
+
                 var requestContent = new MultipartFormDataContent();
                 string webwxuploadmedia1bodyUrl = ReplaceHeaderKey(webwxuploadmedia1body2);
                 ByteArrayContent txtContent = new ByteArrayContent(Encoding.UTF8.GetBytes(webwxuploadmedia1bodyUrl.Replace("[CD]", fs.Length + "")));
@@ -545,7 +556,7 @@ namespace WebChatApiWin
                 di["id"] = "WU_FILE_0";
                 di["name"] = "webwxgetvoice.mp3";
                 di["type"] = "audio/mpeg";
-                di["size"] = fs.Length+"";
+                di["size"] = fs.Length + "";
                 di["mediatype"] = "doc";
                 di["webwx_data_ticket"] = COOKIES["webwx_data_ticket"];
                 di["pass_ticket"] = this.step4xml.pass_ticket;
@@ -577,7 +588,7 @@ namespace WebChatApiWin
 
                 //requestContent.Add(imageContent, "image", "image.jpg");
             }
-            
+
         }
 
         private void webwxinit_old()
@@ -657,7 +668,7 @@ namespace WebChatApiWin
             }
         }
 
-        private Image DownLoadImage(string MsgID,string slave="&type=slave")
+        private Image DownLoadImage(string MsgID, string slave = "&type=slave")
         {
             var url = "https://wx[number].qq.com/cgi-bin/mmwebwx-bin/webwxgetmsgimg?&MsgID={0}&skey={1}" + slave;
 
@@ -688,7 +699,7 @@ namespace WebChatApiWin
         //    return ms;
         //}
 
-        
+
 
         void doStep7()
         {
@@ -736,7 +747,7 @@ namespace WebChatApiWin
                         ShowMsg(content, obj);
 
                         //处理消息
-                        DoMsg(content, obj, obj["MsgId"]+"");
+                        DoMsg(content, obj, obj["MsgId"] + "");
                     }
                 }
                 r.Close();
@@ -779,24 +790,24 @@ namespace WebChatApiWin
             string[] select = PickUpSelectFriend();
 
             object user = select.Length > 0 ? select[0] : null;
-           // object user = lstBoxUser.SelectedItem;
+            // object user = lstBoxUser.SelectedItem;
             if (user == null)
             {
-               txtTip.Text="请选择用户！";
+                txtTip.Text = "请选择用户！";
                 return;
             }
 
-            if (string.IsNullOrEmpty( txtBoxMessage.Text.Trim())&&!ckAppendDateTime.Checked)
+            if (string.IsNullOrEmpty(txtBoxMessage.Text.Trim()) && !ckAppendDateTime.Checked)
             {
-                txtTip.Text="请输入信息！";
+                txtTip.Text = "请输入信息！";
                 return;
             }
             //是否可以批量发送呢？
 
 
-          
+
             //string userid = user.ToString().Substring(user.ToString().LastIndexOf('>')+1);
-           
+
             //string userid = string.Join(",", select);// user.ToString();
             foreach (string item in select)
             {
@@ -828,7 +839,7 @@ namespace WebChatApiWin
         void ListBindDataSource(List<Friend> members)
         {
             //程序运行后的路径获取
-          
+
             List<string> columneName = new List<string>();
             foreach (ColumnHeader item in lstFriendData.Columns)
             {
@@ -846,7 +857,7 @@ namespace WebChatApiWin
                 for (int i = 0; i < columneName.Count; i++)
                 {
                     row[i] = item.GetPropertyString(columneName[i]);
-                    if (string.IsNullOrEmpty(row[i]) && i == 0) 
+                    if (string.IsNullOrEmpty(row[i]) && i == 0)
                     {
                         row[i] = index.ToString();
                     }
@@ -856,13 +867,13 @@ namespace WebChatApiWin
                     }
                 }
                 index++;
-                
-                ListViewItem lvi = new ListViewItem(row,columneName.Count);
+
+                ListViewItem lvi = new ListViewItem(row, columneName.Count);
                 lvi.ImageIndex = 0;
                 lvi.Tag = item.UserName;
                 lstFriendData.Items.Add(lvi);
             }
-            if (!UseSqlDA) 
+            if (!UseSqlDA)
             {//不使用数据库进行数据存在
                 return;
             }
@@ -886,10 +897,10 @@ namespace WebChatApiWin
 
                     if (item["hidden"] != "true")
                     {
-                        ColumnHeader head = new ColumnHeader() { Width=200};
+                        ColumnHeader head = new ColumnHeader() { Width = 200 };
                         head.Name = item["key"];
                         head.Text = item["value"];
-                        if (string.IsNullOrEmpty(head.Text)) 
+                        if (string.IsNullOrEmpty(head.Text))
                         {
                             head.Text = head.Name;
                         }
@@ -899,7 +910,7 @@ namespace WebChatApiWin
             }
             lst.View = View.Details;
             lst.SmallImageList = imageList;
-           
+
             //lst.View = View.Details;
             lst.Columns.AddRange(heads.ToArray());
             ListViewExt lstE = new ListViewExt();
@@ -934,7 +945,7 @@ namespace WebChatApiWin
         /// 提取选择进行消息发送的微信好友
         /// </summary>
         /// <returns></returns>
-        string[] PickUpSelectFriend() 
+        string[] PickUpSelectFriend()
         {
             ListView.ListViewItemCollection datas = lstSelectFriend.Items;
             if (datas.Count == 0) { return new string[0]; }
@@ -960,9 +971,9 @@ namespace WebChatApiWin
         {
             CheckBox ck = sender as CheckBox;
             string tag = ck.Tag as string;
-            string[] ts=new string[0];
-            if (string.IsNullOrEmpty(tag) || (ts=tag.Split('&')).Length>0) {}
-            if (ts.Contains("lstFriendData")&&ck.Checked) 
+            string[] ts = new string[0];
+            if (string.IsNullOrEmpty(tag) || (ts = tag.Split('&')).Length > 0) { }
+            if (ts.Contains("lstFriendData") && ck.Checked)
             {//选择全部好友
                 ListView.ListViewItemCollection all = lstFriendData.Items;
                 lstSelectFriend.Items.Clear();
@@ -972,7 +983,7 @@ namespace WebChatApiWin
                     lstSelectFriend.Items.Add(select);
                 }
             }
-            else if (ts.Contains( "lstSelectFriend") && ck.Checked)
+            else if (ts.Contains("lstSelectFriend") && ck.Checked)
             {//全部移除
                 lstSelectFriend.Items.Clear();
             }
@@ -982,7 +993,7 @@ namespace WebChatApiWin
         /// </summary>
         /// <param name="tag"></param>
         /// <param name="isFirstInitForm"></param>
-        private void InitShowElement(string tag,bool isFirstInitForm=false)
+        private void InitShowElement(string tag, bool isFirstInitForm = false)
         {
             Control.ControlCollection eles = this.Controls;
             foreach (Control item in eles)
@@ -994,7 +1005,7 @@ namespace WebChatApiWin
                     continue;
                 }
                 if (string.IsNullOrEmpty(tagE) || (ts = tagE.Split('&')).Length > 0) { }
-                if (ts.Length==0|| ts.Contains(ActionTag.Common.ToString()) || ts.Contains(tag))
+                if (ts.Length == 0 || ts.Contains(ActionTag.Common.ToString()) || ts.Contains(tag))
                 {
                     item.Show();
                 }
@@ -1004,7 +1015,7 @@ namespace WebChatApiWin
                 }
             }
         }
-        private void SyncWebChatData(object obj) 
+        private void SyncWebChatData(object obj)
         {
             List<Friend> fs = (List<Friend>)obj;
             FriendDataDA da = new FriendDataDA();
@@ -1013,19 +1024,19 @@ namespace WebChatApiWin
             List<FriendDataDA> fas = fs.Select<Friend, FriendDataDA>(s => s.ConvertMapModel<Friend, FriendDataDA>())
                 .Where(d =>
                 {
-                    if (fri != null) 
+                    if (fri != null)
                     {
                         d.DataBelongUserNick = fri.NickName;
                         d.DataBelongUserName = fri.UserName;
                     }
-                    d.Init(); 
+                    d.Init();
                     d.CreateTime = da.CreateTime;
                     return true;
                 }).ToList();
             IWebFriendService web = new WebFriendService("TencentWebChatDAConnString");
             web.InsertList(fas);
         }
-        void QueryGroupMember() 
+        void QueryGroupMember()
         {
             string skey = step4xml.skey;
             string url = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxbatchgetcontact?type=ex&r=1505052926468";
@@ -1086,22 +1097,28 @@ Count:50
                 return;
             }
             object[] o = obj as object[];
-            GetVerifyKey((string)o[0],(string) o[1]);
+            GetVerifyKey((WebChatLoginTocken)o[0], (string)o[1]);
         }
-        void GetVerifyKey(string loginerVerifyCodeUrl, string deviceId)
-        {//此处需要一个定时作业进行消息管理
-            string header = @"Accept:application/json, text/plain, */*
-Accept-Encoding:gzip, deflate, br
-Accept-Language:zh-CN,zh;q=0.8
-Connection:keep-alive
-Host:wx2.qq.com
-Referer:https://wx2.qq.com/?&lang=zh_CN
-User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36";
+        WebChatLoginTocken GetLoginTocken(string loginerVerifyCodeUrl, string deviceId)
+        {
+            /*
+           https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?ticket=A-UlGlrnWCqys2myqayFNghP@qrticket_0&uuid=oY-3-4EsAg==&lang=zh_CN&scan=1510751386&fun=new&version=v2&lang=zh_CN
+             
+           */
             loginerVerifyCodeUrl += "&fun=new&version=v2&lang=zh_CN";
             string text = HttpClientExt.RunPosterContainerHeader(loginerVerifyCodeUrl, header, cookieContainer);
             text.CreateLog(ELogType.LogicLog);
             WebChatLoginTocken tocken = new WebChatLoginTocken();
             tocken.GetWebChatLoginTocket(text);
+            if (tocken.ret != 0)
+            {//实际上登录凭证只需要获取一次即可
+                return null;
+            }
+            return tocken;
+        }
+        void GetVerifyKey(WebChatLoginTocken tocken, string deviceId)
+        {//此处需要一个定时作业进行消息管理
+          
             //将数据填入到查询接口中
             string queryMsgUrlFormat = webChatSampleCfg["QueryWebChatMsgUrlPost"];
             string msgUrl = tocken.GenerateQueryWebChatMsgUrl(queryMsgUrlFormat);
@@ -1127,6 +1144,7 @@ User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like G
             TecentWebChatMsgSyncKey syncKeyObj = SyncKey.ConvertObject<TecentWebChatMsgSyncKey>();
             if (syncKeyObj.BaseResponse.Ret > 0)
             {//没有待采集的消息
+                SyncKey.CreateLog(ELogType.ErrorLog);
                 return;
             }
             //string msg= HttpClientExt.RunPost(msgUrl, paramJson);
@@ -1138,9 +1156,18 @@ User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like G
             string msgQueryPAramJson = param.ConvertJson();
             string msgResponse = HttpClientExt.RunPosterContainerHeaderHavaParam(msgQueryUrl, header, msgQueryPAramJson, cookieContainer);
             WebChatMsg msg = msgResponse.ConvertObject<WebChatMsg>();
-           
-
-            msgResponse.CreateLog(ELogType.DataInDBLog);
+            if (msg.AddMsgList.Count > 0)
+            {
+                msgResponse.CreateLog(ELogType.DataInDBLog);
+            }
         }
+        string header = @"Accept:application/json, text/plain, */*
+Accept-Encoding:gzip, deflate, br
+Accept-Language:zh-CN,zh;q=0.8
+Connection:keep-alive
+Host:wx2.qq.com
+Referer:https://wx2.qq.com/?&lang=zh_CN
+User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36";
+
     }
 }

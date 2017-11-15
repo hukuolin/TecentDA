@@ -13,6 +13,13 @@
 
 https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxsync?sid=0cOtatgGXhvxPtRX&skey=@crypt_45ae67ad_35d19ed0473c64846cb729e4ce4ddae8&lang=zh_CN&pass_ticket=X2SOIvp3lEwMFf618qrTfBaMjFx3CccgJpkSjK93L%252By%252Fe8nZ4dR4aLPMLo0q8BmF
   -->
+  <!--登录的情况
+  1.异常
+  <error>
+    <ret>1203</ret>
+    <message></message>
+</error>
+-->
   <!--查询到的  用户验证码
 
   <error>

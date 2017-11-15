@@ -1,7 +1,3 @@
-D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\Debug\WebChatApiWin.csprojResolveAssemblyReference.cache
-D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\Debug\WebChatApiWin.MainForm.resources
-D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\Debug\WebChatApiWin.Properties.Resources.resources
-D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\Debug\WebChatApiWin.csproj.GenerateResource.Cache
 D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\bin\Debug\AppConfig\WebChatAppCfg.xml
 D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\bin\Debug\AppSettings.xml
 D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\bin\Debug\WebChatFriend.xml
@@ -30,5 +26,9 @@ D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\bin\Debug\WebChatD
 D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\bin\Debug\WebChatData.MssqlDAService.pdb
 D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\bin\Debug\EntityFramework.xml
 D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\bin\Debug\EntityFramework.SqlServer.xml
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\Debug\WebChatApiWin.csprojResolveAssemblyReference.cache
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\Debug\WebChatApiWin.MainForm.resources
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\Debug\WebChatApiWin.Properties.Resources.resources
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\Debug\WebChatApiWin.csproj.GenerateResource.Cache
 D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\Debug\WebChatApiWin.exe
 D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatApiWin\obj\Debug\WebChatApiWin.pdb
