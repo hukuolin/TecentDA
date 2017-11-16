@@ -44,8 +44,9 @@
     <Reference Include="DataHelp">
       <HintPath>..\bin\SelfDefine\DataHelp.dll</HintPath>
     </Reference>
-    <Reference Include="Domain.CommonData">
-      <HintPath>..\bin\SelfDefine\Domain.CommonData.dll</HintPath>
+    <Reference Include="Domain.CommonData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Domain.CommonData.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -192,7 +193,9 @@
       <Name>WebChatData.MssqlDAService</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

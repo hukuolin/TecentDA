@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Configuration;
+using Domain.CommonData;
 namespace WebChatApiWin
 {
     public static class AppLoggerService
@@ -21,7 +22,9 @@ namespace WebChatApiWin
             {
                 return;
             }
-            LoggerWriter.CreateLogFile(msg, NowAppDirHelper.GetNowAppDir(AppCategory.WinApp) + "/" + logType, logType);
+            //加上日期戳
+            string week = Logger.GetWeekIndex();
+            LoggerWriter.CreateLogFile(msg, NowAppDirHelper.GetNowAppDir(AppCategory.WinApp) + "/" + week+"/" + logType, logType);
         }
     }
 }

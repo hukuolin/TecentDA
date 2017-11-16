@@ -30,6 +30,7 @@ using Domain.CommonData;
 using Infrastructure.ExtService;
 using DataHelp;
 using QuartzJobService;
+using Infrastructure.ExtService;
 namespace WebChatApiWin
 {
     public partial class MainForm : Form
@@ -311,23 +312,21 @@ namespace WebChatApiWin
                     step4xml = Xml2Json<Step4XML>(value);
                 }
                 r.Close();
-                if (string.IsNullOrEmpty(GetLoginVerifyCodeUrl) || !GetLoginVerifyCodeUrl.Contains("webwxnewloginpage"))//登陆成功之后获取登录者的登录tocken
+                if (!string.IsNullOrEmpty(GetLoginVerifyCodeUrl)&&GetLoginVerifyCodeUrl.Contains("webwxnewloginpage"))//登陆成功之后获取登录者的登录tocken
                 {
-                    return;
+                    WebChatLoginTocken tocken = GetLoginTocken(GetLoginVerifyCodeUrl, DeviceID);
+                    if (tocken == null)
+                    {
+                        return;
+                    }
+                    //开启新线程进行调度
+                    AsyncThreadDoEvent async = new Infrastructure.ExtService.AsyncThreadDoEvent();
+                    async.OpenNewThreadWithRun(new AsyncThreadDoEvent.CallEvent(NewThreadDoQueryMsg), new object[] { tocken, DeviceID, cookieContainer });
                 }
                 /*
                      https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxnewloginpage?ticket=A-UlGlrnWCqys2myqayFNghP@qrticket_0&uuid=oY-3-4EsAg==&lang=zh_CN&scan=1510751386&fun=new&version=v2&lang=zh_CN
                      */
-                WebChatLoginTocken tocken = GetLoginTocken(GetLoginVerifyCodeUrl, DeviceID);
-                if (tocken == null)
-                {
-                    return;
-                }
-                QuartzJob job = new QuartzJob();
-                BaseDelegate bd = new BaseDelegate(CallGetVerifyKey);
-                object[] funParam = new object[] { tocken, DeviceID };
-                object[] param = new object[] { bd, funParam };
-                job.CreateJobWithParam<JobDelegate<DADefineHelper>>(param, DateTime.Now, 2, -1);
+               
                 // GetVerifyKey(GetLoginVerifyCodeUrl, DeviceID);
             }
         }
@@ -1096,8 +1095,8 @@ Count:50
                 // CallGetVerifyKey(obj);
                 return;
             }
-            object[] o = obj as object[];
-            GetVerifyKey((WebChatLoginTocken)o[0], (string)o[1]);
+            object[] o = obj as object[]; 
+            GetVerifyKey((WebChatLoginTocken)o[0], (string)o[1],(CookieContainer)o[2]);
         }
         WebChatLoginTocken GetLoginTocken(string loginerVerifyCodeUrl, string deviceId)
         {
@@ -1116,7 +1115,19 @@ Count:50
             }
             return tocken;
         }
-        void GetVerifyKey(WebChatLoginTocken tocken, string deviceId)
+        void NewThreadDoQueryMsg(object param) 
+        {
+            //object[] ps = param as object[];
+            //WebChatLoginTocken tocken = ps[0] as WebChatLoginTocken;
+            //string deviceID = ps[1] as string;
+            //object[] funParam = new object[] { tocken, deviceID };
+
+            QuartzJob job = new QuartzJob();
+            BaseDelegate bd = new BaseDelegate(CallGetVerifyKey);
+            object[] quartParam = new object[] { bd, param };
+            job.CreateJobWithParam<JobDelegate<DADefineHelper>>(quartParam, DateTime.Now, 2, -1);
+        }
+        void GetVerifyKey(WebChatLoginTocken tocken, string deviceId, CookieContainer cookieContainer)
         {//此处需要一个定时作业进行消息管理
           
             //将数据填入到查询接口中
