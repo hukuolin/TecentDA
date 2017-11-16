@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainDBContext.cs" />
+    <Compile Include="WebChatMsgService.cs" />
     <Compile Include="WebFriendService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

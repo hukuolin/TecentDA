@@ -9,3 +9,4 @@ D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAS
 D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\obj\Debug\WebChatData.MssqlDAService.csprojResolveAssemblyReference.cache
 D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\obj\Debug\WebChatData.MssqlDAService.dll
 D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\obj\Debug\WebChatData.MssqlDAService.pdb
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.MssqlDAService\bin\Debug\Infrastructure.ExtService.dll

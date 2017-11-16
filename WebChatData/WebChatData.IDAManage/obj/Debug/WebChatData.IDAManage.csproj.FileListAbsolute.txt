@@ -7,3 +7,4 @@ D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.IDAManag
 D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.IDAManage\obj\Debug\WebChatData.IDAManage.csprojResolveAssemblyReference.cache
 D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.IDAManage\obj\Debug\WebChatData.IDAManage.dll
 D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.IDAManage\obj\Debug\WebChatData.IDAManage.pdb
+D:\Dream\ExcuteHttpCmd\WebChatApi\WebChatApiWin\WebChatData\WebChatData.IDAManage\bin\Debug\Infrastructure.ExtService.dll
