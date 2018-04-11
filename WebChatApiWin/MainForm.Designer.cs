@@ -314,8 +314,6 @@
             // ckOnlyFriend
             // 
             this.ckOnlyFriend.AutoSize = true;
-            this.ckOnlyFriend.Checked = true;
-            this.ckOnlyFriend.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckOnlyFriend.Location = new System.Drawing.Point(95, 4);
             this.ckOnlyFriend.Name = "ckOnlyFriend";
             this.ckOnlyFriend.Size = new System.Drawing.Size(60, 16);

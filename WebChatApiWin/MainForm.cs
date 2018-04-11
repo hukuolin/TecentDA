@@ -297,6 +297,13 @@ namespace WebChatApiWin
                 h.AllowAutoRedirect = false;
                 h.CookieContainer = cookieContainer;
                 HttpWebResponse r = (HttpWebResponse)h.GetResponse();
+                //此时进行cookie提取
+               // CookieCollection cookies = r.Cookies;
+               //// cookieContainer.Add(cookies);
+               // foreach (Cookie item in cookies)
+               // {
+               //     cookieContainer.Add(new Cookie(item.Name, item.Value,item.Path,item.Domain));
+               // }
                 COOKIES = GetAllCookiesA(cookieContainer);//  'webwxuvid'  'webwx_auth_ticket'  'wxuin' 'mm_lang' 'wxloadtime' 五项  cookie
                 // 然而实际的请求需要项  'pgv_pvi' 'webwxuvid' 'webwx_auth_ticket'  'wxloadtime'  'wxpluginkey'  'wxuin'  'mm_lang'
                 #region 登录成功就查询相关信息
@@ -1138,23 +1145,24 @@ Count:50
                 DeviceID = deviceId,
                 Sid = tocken.wxsid,//此参数绑定不正确
                 Skey = tocken.skey,
-                Uin = new TestClass().GetJsNewData()
-            };
-            QueryWebChatMsgObjectParam param = new QueryWebChatMsgObjectParam()
-            {
-                BaseRequest = bp,
-                rr = new TestClass().GetJsNewData()
+                Uin =tocken.wxuin //  wxuin new TestClass().GetJsNewData()
             };
             //首先获取查询消息列表的参数
             string keyParamFromUrl = webChatSampleCfg["WebChatMsgSyncKeyPost"];
             string requestUrl = keyParamFromUrl.Replace("{newDate}", new TestClass().GetJsNewData()).Replace("{pass_ticket}", tocken.pass_ticket);
-            string paramJson = param.ConvertJson();
+            QueryWebChatMsgObjectParam param = new QueryWebChatMsgObjectParam()
+            {
+                BaseRequest = bp,
+                rr = new TestClass().DateTimeToStamp(DateTime.Now) //此处时间戳获得的数据不对
+            };
+            string paramJson = param.ConvertJson();            
             string SyncKey = HttpClientExt.RunPosterContainerHeaderHavaParam(requestUrl, header, paramJson, cookieContainer); //HttpClientExt.RunPost(requestUrl, paramJson);
-
             //getFormateSyncCheckKey  
             TecentWebChatMsgSyncKey syncKeyObj = SyncKey.ConvertObject<TecentWebChatMsgSyncKey>();
+            //经常出现返回的验证状态错误 1101  采集不到消息ID
             if (syncKeyObj.BaseResponse.Ret > 0)
             {//没有待采集的消息
+                paramJson.CreateLog(ELogType.ParamLog);
                 SyncKey.CreateLog(ELogType.ErrorLog);
                 return;
             }
@@ -1170,6 +1178,11 @@ Count:50
             if (msg.AddMsgList.Count > 0)
             {
                 msgResponse.CreateLog(ELogType.DataInDBLog);
+                //消息入库
+                List<TecentMsgDataItem> msgs = msg.AddMsgList.Select<MsgContent,TecentMsgDataItem>(s=>(TecentMsgDataItem)s).ToList();
+               //hack  list<派生类> 不能直接转换为 list<父类>
+                WebChatMsgService msgService = new WebChatMsgService();
+                msgService.AddList(msgs);
             }
         }
         string header = @"Accept:application/json, text/plain, */*

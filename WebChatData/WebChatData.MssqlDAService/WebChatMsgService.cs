@@ -28,5 +28,11 @@ namespace WebChatData.MssqlDAService
         {
             throw new NotImplementedException();
         }
+
+        public int AddList(List<TecentMsgDataItem> msgs)
+        {
+
+            throw new NotImplementedException();
+        }
     }
 }

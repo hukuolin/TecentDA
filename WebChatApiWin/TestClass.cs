@@ -40,7 +40,20 @@ namespace WebChatApiWin
         public string GetJsNewData() 
         {
             long mils = GetJsDateNow();
-            return ((long)mils / 1138.8).ToString();
+            return ((long)mils / 1138.8).ToString();// 1541.5102730241383
+        }
+        public string DateTimeToStamp(System.DateTime time)
+        {
+            /*
+              new TestClass().DateTimeToStamp(DateTime.Now) 1510848779
+
+ ~new Date() 979701928
+
+DateTime.Now 2017-11-17 0:13:26
+             */
+
+            System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            return ((long)(time - startTime).TotalSeconds).ToString();
         }
         /*
          1.获取登录的skey

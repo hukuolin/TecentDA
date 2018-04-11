@@ -7,5 +7,6 @@ namespace WebChatData.IDAService
 {
     public interface IWebChatMsgService<T>:IBaseService<T> where T:class
     {
+        int AddList(List<T> msgs);
     }
 }
