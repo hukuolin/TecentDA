@@ -29,8 +29,9 @@ namespace WebChatApiWin
         /// <param name="Form"></param>
         /// <param name="FormName"></param>
         /// <param name="ad"></param>
+        /// <param name="uin"></param>
         /// <param name="img"></param>
-        void SendMoney(string Form, string FormName, string msg)
+        void SendMoney(string Form, string FormName,string uin, string msg)
         {
             var xm = SubString(msg,"<des><![CDATA[", "向你付钱成功，已存入零钱时间");
 
@@ -57,7 +58,7 @@ namespace WebChatApiWin
                 {
                     var userform = USER_DI.Where(o => o.Value == xm).Select(o => { return o.Key; }).FirstOrDefault();
                     if (userform != null)
-                        SendMsg(userform, USER_INFO, ret, false);
+                        SendMsg(userform, USER_INFO, ret,uin, false);
                 }
                 catch { }
             }
@@ -66,7 +67,7 @@ namespace WebChatApiWin
         void SendJiHuo(string Form, string FormName, string msg)
         {
 
-            SendMsg(Form, USER_INFO, "正在激活...", false);
+            SendMsg(Form, USER_INFO, "正在激活...",Uin, false);
             //z.etuling.com:10001/money
             //把图片上传到服务器上。
             using (WebClient wc = new WebClient())
@@ -89,7 +90,7 @@ namespace WebChatApiWin
                 else
                 {
                     Thread.Sleep(1000);
-                    SendMsg(Form, USER_INFO, ret, false);
+                    SendMsg(Form, USER_INFO, ret,Uin, false);
                 }
              
             }

@@ -94,9 +94,9 @@ namespace WebChatApiWin
                                     {
                                         //我直接发的，我再回一条，但是一定不能死循环
                                         if (one._FormUserName == USER_INFO && ret.StartsWith("@"))
-                                            SendMsg(one._ToUserName, one._FormUserName, ret, false);
+                                            SendMsg(one._ToUserName, one._FormUserName, ret,Uin, false);
                                         else
-                                            SendMsg(one._FormUserName, USER_INFO, ret, false);
+                                            SendMsg(one._FormUserName, USER_INFO, ret,Uin, false);
                                     }
                                     //else
                                     //    SendMsg(USER_INFO, one._FormUserName, ret, false);

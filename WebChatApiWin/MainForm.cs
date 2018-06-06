@@ -50,6 +50,7 @@ namespace WebChatApiWin
         private Dictionary<string, string> _GenderDesc;
         bool UseSqlDA = ConfigurationManager.AppSettings["UseSqlDA"] == "true" ? true : false;
         string GetLoginVerifyCodeUrl = string.Empty;
+        string Uin = string.Empty;
         Dictionary<string, string> webChatSampleCfg = new Dictionary<string, string>();
         protected Dictionary<string, string> GenderDes
         {
@@ -270,7 +271,7 @@ namespace WebChatApiWin
                         if (s.Value.IndexOf("都好") != -1)
                         {
                             b = true;
-                            SendMsg(s.Key, USER_INFO, DateTime.Now.ToString(), false);
+                            SendMsg(s.Key, USER_INFO, DateTime.Now.ToString(),Uin, false);
                             break;
                         }
                     }
@@ -660,9 +661,9 @@ namespace WebChatApiWin
             catch (Exception err)
             {
 #if DEBUG
-                SendMsg(Form, USER_INFO, err.Message, false);
+                SendMsg(Form, USER_INFO, err.Message,Uin, false);
 #else
-                SendMsg(Form, USER_INFO, "接收图片出现错误!", false);
+                SendMsg(Form, USER_INFO, "接收图片出现错误!",Uin, false);
 #endif
             }
         }
@@ -816,7 +817,7 @@ namespace WebChatApiWin
                 {
                     sb.AppendLine(DateTime.Now.ToString(format));
                 }
-                SendMsgResponse result= SendMsg(item, user.ToString(), sb.ToString(), false);
+                SendMsgResponse result= SendMsg(item, user.ToString(), sb.ToString(),Uin, false);
                 txtTip.Text += "\r\n" + result.BaseResponse.ErrMsg;
                // SendMsg(item, USER_INFO, sb.ToString(), false);
             }
@@ -1142,6 +1143,7 @@ Count:50
                 Skey = tocken.skey,
                 Uin =tocken.wxuin //  wxuin new TestClass().GetJsNewData()
             };
+            Uin = tocken.wxuin;//获取验证
             //首先获取查询消息列表的参数
             string keyParamFromUrl = webChatSampleCfg["WebChatMsgSyncKeyPost"];
             string requestUrl = keyParamFromUrl.Replace("{newDate}", new TestClass().GetJsNewData()).Replace("{pass_ticket}", tocken.pass_ticket);

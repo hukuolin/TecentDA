@@ -87,14 +87,14 @@ namespace WebChatApiWin
                 //处理支付信息
                 if (msg.Contains("面对面收钱到账通知"))
                 {
-                    SendMsg(_FormUserName, _ToUserName, "正在处理收款信息...", false);
-                    SendMoney(_FormUserName, FormUserName, msg);
+                    SendMsg(_FormUserName, _ToUserName, "正在处理收款信息...", Uin,false);
+                    SendMoney(_FormUserName, FormUserName,Uin, msg);
                     return;
                 }
 
                 if (msg.Contains("刚刚把你添加到通讯录，现在可以开始聊天了。") || msg.Contains("我要激活"))
                 {
-                    SendMsg(_FormUserName, _ToUserName, "正在处理激活流程信息...", false);
+                    SendMsg(_FormUserName, _ToUserName, "正在处理激活流程信息...",Uin, false);
                     SendJiHuo(_FormUserName, FormUserName, msg);
                     return;
                 }
@@ -200,7 +200,7 @@ namespace WebChatApiWin
             */
         }
 
-        private bool ShowHelp(string msg, string _FormUserName, string _ToUserName)
+        private bool ShowHelp(string msg, string _FormUserName, string uin,string _ToUserName)
         {
 //            if (msg == "10")
 //            {
@@ -266,7 +266,7 @@ www.etuling.com/tv
 //www.etuling.com/add
 //高级设置
 //www.etuling.com/option
-                SendMsg(_FormUserName, _ToUserName, neirong.Replace("\r","\n").Replace("\n\n","\n"), false);
+                SendMsg(_FormUserName, _ToUserName, neirong.Replace("\r", "\n").Replace("\n\n", "\n"), uin, false);
                 return true;
             }
 
@@ -279,12 +279,29 @@ www.etuling.com/tv
         /// <param name="FromUserName">接收者 不要搞错了</param>
         /// <param name="ToUserName">发送者</param>
         /// <param name="msg">消息</param>
+        /// <param name="uin">生成验证码时提供的tocken</param>
         /// <param name="robot">true 机器人 false 普通用户</param>
-        private SendMsgResponse SendMsg(string FromUserName, string ToUserName, string msg, bool robot = true)
+        private SendMsgResponse SendMsg(string FromUserName, string ToUserName, string msg,string uin, bool robot = true)
         {
             //发消息
-            var p = @"{""BaseRequest"":{""Uin"":{UIN},""Sid"":""{SID}"",""Skey"":""{SKEY}"",""DeviceID"":""{DeviceID}""},""Msg"":{""Type"":1,""Content"":""{msg}"",""FromUserName"":""{FromUserName}"",""ToUserName"":""{ToUserName}"",""LocalID"":""{LocalID}"",""ClientMsgId"":""{ClientMsgId}""}}";
-
+            var p = @"{""BaseRequest"":{""Uin"":{UIN},""Sid"":""{SID}"",""Skey"":""{SKEY}"",""DeviceID"":""{DeviceID}""},""Msg"":{""Type"":1,""Content"":""{msg}"",""FromUserName"":""{FromUserName}"",""ToUserName"":""{ToUserName}"",""LocalID"":""{LocalID}"",""ClientMsgId"":""{ClientMsgId}""},""Scene"":0}";
+            /*{
+                BaseRequest:{ 
+                    DeviceID:"e863342965379663"
+                    Sid:"2NHpeQJtywSJQX13"
+                    Skey:"@crypt_45ae67ad_df25cf6d28dc1392c220237ac91441b8"
+                    Uin:2266323382
+                }
+                Msg:{ 
+                    ClientMsgId:"15282968813090945"
+                    Content:"刚刚试的"
+                    FromUserName:"@5d378f12355d9361301ee2a307c02daf7ea93d81eec34af01ebe4879f89a2241"
+                    LocalID:"15282968813090945"
+                    ToUserName:"@c40635c4f56760a7aaf5b2b1f4508f92"
+                    Type:1
+                }
+                Scene:0
+            }*/
             var url = "https://wx[number].qq.com/cgi-bin/mmwebwx-bin/webwxsendmsg?pass_ticket={pass_ticket}";
             var temp = ReplaceKey(url);
 
