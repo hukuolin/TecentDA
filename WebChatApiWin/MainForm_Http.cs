@@ -47,7 +47,10 @@ namespace WebChatApiWin
                         client.DefaultRequestHeaders.Remove(k);
                         client.DefaultRequestHeaders.Add(k, s.Substring(x + 1));
                     }
-                    catch { }
+                    catch (Exception ex)
+                    {
+                    
+                    }
                 }
             }
         }

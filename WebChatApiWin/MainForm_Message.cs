@@ -280,7 +280,7 @@ www.etuling.com/tv
         /// <param name="ToUserName">发送者</param>
         /// <param name="msg">消息</param>
         /// <param name="robot">true 机器人 false 普通用户</param>
-        private void SendMsg(string FromUserName, string ToUserName, string msg, bool robot = true)
+        private SendMsgResponse SendMsg(string FromUserName, string ToUserName, string msg, bool robot = true)
         {
             //发消息
             var p = @"{""BaseRequest"":{""Uin"":{UIN},""Sid"":""{SID}"",""Skey"":""{SKEY}"",""DeviceID"":""{DeviceID}""},""Msg"":{""Type"":1,""Content"":""{msg}"",""FromUserName"":""{FromUserName}"",""ToUserName"":""{ToUserName}"",""LocalID"":""{LocalID}"",""ClientMsgId"":""{ClientMsgId}""}}";
@@ -324,17 +324,18 @@ www.etuling.com/tv
                 HttpWebResponse r = (HttpWebResponse)h.GetResponse();
 
                 //var list = GetAllCookies(cookieContainer);
-
+                SendMsgResponse response = new SendMsgResponse() { BaseResponse = new BaseResponse() };
                 using (System.IO.StreamReader read = new System.IO.StreamReader(r.GetResponseStream()))
                 {
                     string value = read.ReadToEnd();
-                    SendMsgResponse response = value.ConvertJson<SendMsgResponse>();
+                    response = value.ConvertJson<SendMsgResponse>();
                 }
                 r.Close();
+                return response;
             }
             catch (Exception ex)
             {
-
+                return new SendMsgResponse() { BaseResponse = new BaseResponse() { ErrMsg = ex.Message } };
             }
         }
     }

@@ -28,7 +28,7 @@ namespace WebChatApiWin
     {
         public string MsgID { get; set; }
         public string LocalID { get; set; }
-        public SendMsgResponse BaseResponse { get; set; }
+        public BaseResponse BaseResponse { get; set; }
     }
   
 }

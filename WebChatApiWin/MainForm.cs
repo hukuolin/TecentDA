@@ -540,13 +540,6 @@ namespace WebChatApiWin
         void sendFileMsg(string filePath)
         {
             HttpClient newClient = new HttpClient();
-            //{
-            //    //执行第一个
-            //    SendHeader(newClient, webwxuploadmedia0[1]);
-            //    string webwxuploadmediaUrl = ReplaceKey(webwxuploadmedia0[0]);
-            //    var result = newClient.PostAsync(webwxuploadmediaUrl, new StringContent(""));
-            //    Console.WriteLine(result.Result);
-            //}
             {
                 FileStream fs = File.OpenRead(filePath);
 
@@ -823,7 +816,9 @@ namespace WebChatApiWin
                 {
                     sb.AppendLine(DateTime.Now.ToString(format));
                 }
-                SendMsg(item, USER_INFO, sb.ToString(), false);
+                SendMsgResponse result= SendMsg(item, user.ToString(), sb.ToString(), false);
+                txtTip.Text += "\r\n" + result.BaseResponse.ErrMsg;
+               // SendMsg(item, USER_INFO, sb.ToString(), false);
             }
             if (ckClearText.Checked)
             {
